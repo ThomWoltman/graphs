@@ -41,6 +41,38 @@ namespace DungeonGraphs.Models
             }
         }
 
+        public void AddHallways()
+        {
+            Random rdm = new Random();
+            for(int y = 0; y < rooms.Length; y++)
+            {
+                bool down = y != rooms.Length - 1;
+                for(int x = 0; x < rooms[y].Length; x++)
+                {
+                    bool right = x != rooms[y].Length - 1;
+                    int bla = rdm.Next(5);
+
+                    if (right)
+                    {
+                        var hw = new Hallway(rooms[y][x], rooms[y][x + 1]);
+                        rooms[y][x].right = hw;
+                        rooms[y][x+1].left = hw;
+
+                        hw.isCollapsed = bla == 1;
+                    }
+                    if (down)
+                    {
+                        var hw = new Hallway(rooms[y][x], rooms[y+1][x]);
+                        rooms[y][x].down = hw;
+                        rooms[y+1][x].top = hw;
+
+                        hw.isCollapsed = bla == 2;
+                    }
+                    
+                }
+            }
+        }
+
         public void Print()
         {
             StringBuilder str1 = new StringBuilder();
