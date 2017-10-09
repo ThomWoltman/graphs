@@ -12,9 +12,9 @@ namespace DungeonGraphs
         static void Main(string[] args)
         {
             var Dungeon = new Dungeon(9, 9);
-            Dungeon.createRooms();
+            Dungeon.CreateRooms();
 
-            Dungeon.print();
+            Dungeon.Print();
 
             Console.ReadKey();
         }

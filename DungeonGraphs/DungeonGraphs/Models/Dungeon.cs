@@ -19,7 +19,7 @@ namespace DungeonGraphs.Models
             }
         }
 
-        public void createRooms()
+        public void CreateRooms()
         {
             Random rdm = new Random();
             int randomX = rdm.Next(0, rooms.Length);
@@ -41,7 +41,7 @@ namespace DungeonGraphs.Models
             }
         }
 
-        public void print()
+        public void Print()
         {
             StringBuilder str1 = new StringBuilder();
             StringBuilder str2 = new StringBuilder();
