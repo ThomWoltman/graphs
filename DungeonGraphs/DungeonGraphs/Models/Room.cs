@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonGraphs.Models
 {
-    class Room
+    public class Room
     {
         public bool _isStair;
         public Hallway top;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonGraphs.Models
 {
-    class Dungeon
+    public class Dungeon
     {
         public Room[][] rooms;
 

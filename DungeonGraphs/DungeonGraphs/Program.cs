@@ -16,9 +16,26 @@ namespace DungeonGraphs
             Dungeon.AddHallways();
 
             Dungeon.Print();
-            
 
+            Console.WriteLine("x");
+            int x = int.Parse(Console.ReadLine());
+            Console.WriteLine("y");
+            int y = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("talisman?");
             Console.ReadKey();
+
+            var room = Dungeon.rooms[y][x];
+
+            var result = new Talisman().Execute(room);
+
+            Console.WriteLine("steps = "+result);
+            Console.ReadKey();
+        }
+
+        static void PrintMenu()
+        {
+            
         }
     }
 }

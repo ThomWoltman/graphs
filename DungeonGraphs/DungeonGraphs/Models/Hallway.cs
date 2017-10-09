@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonGraphs.Models
 {
-    class Hallway
+    public class Hallway
     {
         public Room room1;
         public Room room2;
