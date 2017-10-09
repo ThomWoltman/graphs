@@ -61,7 +61,15 @@ namespace DungeonGraphs.Models
                         }
                         else
                         {
-                            str2.Append("|");
+                            if (room.down.isCollapsed)
+                            {
+                                str2.Append("#");
+                            }
+                            else
+                            {
+                                str2.Append("|");
+                            }
+                            
                         }
                     }
 
@@ -73,7 +81,15 @@ namespace DungeonGraphs.Models
                         }
                         else if (room.right != null)
                         {
-                            str1.Append("-");
+                            if (room.right.isCollapsed)
+                            {
+                                str1.Append("#");
+                            }
+                            else
+                            {
+                                str1.Append("-");
+                            }
+                            
                         }
                         str2.Append(" ");
                     }
