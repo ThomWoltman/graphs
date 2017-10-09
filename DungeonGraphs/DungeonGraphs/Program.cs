@@ -11,8 +11,12 @@ namespace DungeonGraphs
     {
         static void Main(string[] args)
         {
-            var Dungeon = new Dungeon(3, 3);
+            var Dungeon = new Dungeon(9, 9);
             Dungeon.createRooms();
+
+            Dungeon.print();
+
+            Console.ReadKey();
         }
     }
 }
