@@ -9,7 +9,7 @@ namespace DungeonGraphs
 {
     public class Talisman
     {
-        public int Execute(Room room) //Breadth-first search
+        public int Execute(Room room) //Breadth-first search algorithm
         {
             int result = 0;
             
