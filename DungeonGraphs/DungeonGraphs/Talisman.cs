@@ -11,6 +11,16 @@ namespace DungeonGraphs
     {
         public int Execute(Room room) //Breadth-first search
         {
+            List<Room> queue = new List<Room>();
+            HashSet<Room> visited = new HashSet<Room>();
+
+            queue.Add(room);
+
+            while (queue.Count == 0) {
+                Room visitRoom = queue.First();
+                queue.RemoveAt(0);
+
+            }
             int result = 0;
             
 
