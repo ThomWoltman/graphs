@@ -9,9 +9,14 @@ namespace DungeonGraphs.Models
     public class Dungeon
     {
         public Room[][] rooms;
+        public List<Room> minRooms;
+        public List<Hallway> minHallways;
 
         public Dungeon(int x, int y)
         {
+            minRooms = new List<Room>();
+            minHallways = new List<Hallway>();
+
             rooms = new Room[y][];
             for(int i = 0; i < rooms.Length; i++)
             {
@@ -50,25 +55,45 @@ namespace DungeonGraphs.Models
                 for(int x = 0; x < rooms[y].Length; x++)
                 {
                     bool right = x != rooms[y].Length - 1;
-                    int bla = rdm.Next(5);
 
                     if (right)
                     {
                         var hw = new Hallway(rooms[y][x], rooms[y][x + 1]);
                         rooms[y][x].right = hw;
                         rooms[y][x+1].left = hw;
-
-                        hw.isCollapsed = bla == 1;
                     }
                     if (down)
                     {
                         var hw = new Hallway(rooms[y][x], rooms[y+1][x]);
                         rooms[y][x].down = hw;
                         rooms[y+1][x].top = hw;
-
-                        hw.isCollapsed = bla == 2;
                     }
                     
+                }
+            }
+            int rdmy = rdm.Next(rooms.Length);
+            int rdmx = rdm.Next(rooms[0].Length);
+
+            new Grenade().MinimumSpanningTree(rooms[rdmy][rdmx], minHallways, minRooms);
+
+            for (int y = 0; y < rooms.Length; y++)
+            {
+                for (int x = 0; x < rooms[y].Length; x++)
+                {
+                    var currentroom = rooms[y][x];
+                    var random = rdm.Next(3);
+                    
+                    if (currentroom.right != null && !minHallways.Contains(currentroom.right))
+                    {
+                        if(random == 1)
+                            currentroom.right.isCollapsed = true;
+                    }
+                    if (currentroom.down != null && !minHallways.Contains(currentroom.down))
+                    {
+                        if(random == 2)
+                            currentroom.down.isCollapsed = true;
+                    }
+
                 }
             }
         }
@@ -77,10 +102,22 @@ namespace DungeonGraphs.Models
         {
             StringBuilder str1 = new StringBuilder();
             StringBuilder str2 = new StringBuilder();
+            int x;
+            int y;
 
-            for (int y = 0; y < rooms.Length; y++)
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("  ");
+            for(int a = 0; a < rooms[0].Length; a++)
             {
-                for(int x = 0; x < rooms[y].Length; x++)
+                Console.Write(a + " ");
+            }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+
+            for (y = 0; y < rooms.Length; y++)
+            {
+                for(x = 0; x < rooms[y].Length; x++)
                 {
                     var room = rooms[y][x];
                     str1.Append(room.ToString());
@@ -126,8 +163,37 @@ namespace DungeonGraphs.Models
                         str2.Append(" ");
                     }
                 }
-                Console.WriteLine(str1);
-                Console.WriteLine(str2);
+
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write(y + " ");
+                Console.ForegroundColor = ConsoleColor.White;
+                
+                for(int i = 0; i < str1.Length; i++)
+                {
+                    if (str1[i] == '-' || str1[i] == '|')
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    if (str1[i] == '#')
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(str1[i]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
+                Console.WriteLine();
+                Console.Write("  ");
+
+                for (int i = 0; i < str2.Length; i++)
+                {
+
+                    if (str2[i] == '-' || str2[i] == '|')
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    if (str2[i] == '#')
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(str2[i]);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
+                Console.WriteLine();
+
                 str1.Clear();
                 str2.Clear();
             }

@@ -11,31 +11,49 @@ namespace DungeonGraphs
     {
         static void Main(string[] args)
         {
-            var Dungeon = new Dungeon(5, 5);
-            Dungeon.CreateRooms();
-            Dungeon.AddHallways();
+            Dungeon dungeon = NewDungeon();
 
-            Dungeon.Print();
+            bool isrunning = true;
 
-            Console.WriteLine("x");
-            int x = int.Parse(Console.ReadLine());
-            Console.WriteLine("y");
-            int y = int.Parse(Console.ReadLine());
+            while (isrunning)
+            {
+                Console.Clear();
+                dungeon.Print();
+                
+                Console.WriteLine("[new dungeon] - [grenade] - [talisman] - [quit]");
 
-            Console.WriteLine("talisman?");
-            Console.ReadKey();
+                var input = Console.ReadLine();
 
-            var room = Dungeon.rooms[y][x];
-
-            var result = new Talisman().Execute(room);
-
-            Console.WriteLine("steps = "+result);
-            Console.ReadKey();
+                switch (input)
+                {
+                    case "new dungeon":
+                        dungeon = NewDungeon();
+                        break;
+                    case "grenade":
+                        new Grenade().DropGrenade(dungeon);
+                        break;
+                    case "quit":
+                        isrunning = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
-        static void PrintMenu()
+        static Dungeon NewDungeon()
         {
-            
+            Console.WriteLine("Make a new dungeon");
+            Console.WriteLine("x length?: ");
+            int x = int.Parse(Console.ReadLine());
+            Console.WriteLine("y length?: ");
+            int y = int.Parse(Console.ReadLine());
+
+            var dungeon = new Dungeon(x, y);
+            dungeon.CreateRooms();
+            dungeon.AddHallways();
+
+            return dungeon;
         }
     }
 }

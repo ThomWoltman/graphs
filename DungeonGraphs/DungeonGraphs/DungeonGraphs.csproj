@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Grenade.cs" />
     <Compile Include="Models\Dungeon.cs" />
     <Compile Include="Models\Enemy.cs" />
     <Compile Include="Models\Hallway.cs" />
