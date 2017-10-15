@@ -32,6 +32,10 @@ namespace DungeonGraphs
                     case "grenade":
                         new Grenade().DropGrenade(dungeon);
                         break;
+                    case "talisman":
+                        Console.WriteLine(new Talisman().Execute(dungeon.rooms.First().First()));
+                        Console.Read();
+                        break;
                     case "quit":
                         isrunning = false;
                         break;
