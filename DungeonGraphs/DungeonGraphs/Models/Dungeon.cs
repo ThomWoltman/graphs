@@ -81,7 +81,7 @@ namespace DungeonGraphs.Models
                 for (int x = 0; x < rooms[y].Length; x++)
                 {
                     var currentroom = rooms[y][x];
-                    var random = rdm.Next(3);
+                    var random = rdm.Next(1,3);
                     
                     if (currentroom.right != null && !minHallways.Contains(currentroom.right))
                     {
@@ -106,10 +106,13 @@ namespace DungeonGraphs.Models
             int y;
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("  ");
+            Console.Write("   ");
             for(int a = 0; a < rooms[0].Length; a++)
             {
-                Console.Write(a + " ");
+                
+                    Console.Write(a + " ");
+                
+                
             }
 
             Console.ForegroundColor = ConsoleColor.White;
@@ -165,11 +168,21 @@ namespace DungeonGraphs.Models
                 }
 
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.Write(y + " ");
+                if (y > 9)
+                {
+                    Console.Write(y + " ");
+                }
+                else
+                {
+                    Console.Write(y + "  ");
+                }
+                
                 Console.ForegroundColor = ConsoleColor.White;
                 
                 for(int i = 0; i < str1.Length; i++)
                 {
+                    if (str1[i] == 'S')
+                        Console.ForegroundColor = ConsoleColor.Green;
                     if (str1[i] == '-' || str1[i] == '|')
                         Console.ForegroundColor = ConsoleColor.Yellow;
                     if (str1[i] == '#')
@@ -179,7 +192,7 @@ namespace DungeonGraphs.Models
                 }
 
                 Console.WriteLine();
-                Console.Write("  ");
+                Console.Write("   ");
 
                 for (int i = 0; i < str2.Length; i++)
                 {
