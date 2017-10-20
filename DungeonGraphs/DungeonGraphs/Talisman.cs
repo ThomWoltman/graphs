@@ -13,17 +13,19 @@ namespace DungeonGraphs
         {
             //local variables
             List<Room> queue = new List<Room>();
-            HashSet<Room> visited = new HashSet<Room>();
-            int result=0;
+            Dictionary<Room, int> visited = new Dictionary<Room, int>();
 
             //adds fist room to the queue 
             queue.Add(start);
-            visited.Add(start);
+            visited.Add(start,0);
 
             Room room = queue.First();
             //loop untill the stairs in found
-            while (!room._isStair) {
+            while (true) {
                  room = queue.First();
+
+             
+
                 queue.RemoveAt(0);
 
                 Room down = null; 
@@ -32,50 +34,84 @@ namespace DungeonGraphs
                 Room right = null;
 
                 //null checks connected rooms
-                if (room.down != null) {
-                     down = room.Equals(room.down.room1) ? room.down.room2 : room.down.room1;
+                if (room._isStair) {
+                    return 0;
                 }
-                if (room.top != null)
+                if (room.down != null && !room.down.isCollapsed) {
+                     down = room.Equals(room.down.room1) ? room.down.room2 : room.down.room1;
+                    if (down._isStair)
+                    {
+                        return visited.FirstOrDefault(x => x.Key == room).Value+1;
+                    }
+                }
+                if (room.top != null &&  !room.top.isCollapsed)
                 {
                      top = room.Equals(room.top.room1) ? room.top.room2 : room.top.room1;
+                    if (top._isStair)
+                    {
+                        return visited.FirstOrDefault(x => x.Key == room).Value + 1;
+                    }
                 }
-                if (room.left != null)
+                if (room.left != null && !room.left.isCollapsed)
                 {
                      left = room.Equals(room.left.room1) ? room.left.room2 : room.left.room1;
+                    if (left._isStair)
+                    {
+                        return visited.FirstOrDefault(x => x.Key == room).Value + 1;
+                    }
                 }
-                if (room.right != null)
+                if (room.right != null && !room.right.isCollapsed)
                 {
                      right = room.Equals(room.right.room1) ? room.right.room2 : room.right.room1;
+                    if (right._isStair)
+                    {
+                        return visited.FirstOrDefault(x => x.Key == room).Value + 1;
+                    }
                 }
 
+
                 //looks if the room is already visited
-                if (!visited.Contains(right) && right != null)
+                if ( right != null && !visited.ContainsKey(right) )
                 {
-                    visited.Add(right);
+                    
+                    int i;
+                     i = visited.FirstOrDefault(x => x.Key == room).Value;
+                    i++;
+                    visited.Add(right, i);
                     queue.Add(right);
                 }
-                else if (!visited.Contains(left) && left != null)
+                 if (left != null && !visited.ContainsKey(left))
                 {
-                    visited.Add(left);
+                    int i;
+                  
+                        i = visited.Where(x => x.Key == room).First().Value;
+                    i++;
+                    visited.Add(left, i);
                     queue.Add(left);
                 }
 
-                else if (!visited.Contains(down) && down != null)
+                 if ( down != null && !visited.ContainsKey(down))
                 {
-                    visited.Add(down);
+                    int i;
+
+                         i = visited.Where(x => x.Key == room).First().Value;
+                    i++;
+                    visited.Add(down, i);
                     queue.Add(down);
-                    result++;
                 }
-                else if (!visited.Contains(top) && top != null)
+                 if ( top != null && !visited.ContainsKey(top)  )
                 {
-                    visited.Add(top);
+                    int i;
+
+                        i = visited.Where(x => x.Key == room).First().Value;
+
+                    i++;
+                    visited.Add(top, i);
                     queue.Add(top);
-                    result--;
                 }
             }
 
 
-            return result;
         }
 
 
