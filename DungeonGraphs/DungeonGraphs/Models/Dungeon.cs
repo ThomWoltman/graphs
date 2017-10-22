@@ -24,13 +24,14 @@ namespace DungeonGraphs.Models
             }
         }
 
-        public void CreateRooms()
+        public void CreateRooms(int meY,int meX)
         {
             Random rdm = new Random();
             int randomX = rdm.Next(0, rooms.Length);
             int randomY = rdm.Next(0, rooms[0].Length);
 
-            for(int y = 0; y < rooms.Length; y++)
+
+            for (int y = 0; y < rooms.Length; y++)
             {
                 for(int x = 0; x < rooms[y].Length; x++)
                 {
@@ -42,6 +43,13 @@ namespace DungeonGraphs.Models
                     {
                         rooms[y][x] = new Room(false);
                     }
+
+                    if (y == meY && x == meX) {
+                        Room room = new Room(false);
+                        room.me = true;
+                        rooms[y][x] = room;
+                    }
+                    
                 }
             }
         }

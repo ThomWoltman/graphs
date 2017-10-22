@@ -13,10 +13,11 @@ namespace DungeonGraphs.Models
         public Hallway down;
         public Hallway left;
         public Hallway right;
-
+        public bool me;
         public Room(bool isStair)
         {
             _isStair = isStair;
+            me = false;
             top = null;
             down = null;
             left = null;
@@ -28,6 +29,10 @@ namespace DungeonGraphs.Models
             if (_isStair)
             {
                 return "S";
+            }
+            if (me)
+            {
+                return ":D";
             }
             return "R";
         }
